@@ -17,9 +17,11 @@ class AuthorController extends Controller
         $authors = Author::all();
         if ($authors && $authors->count() > 0) {
             return response(['message' => 'Show data successful', 'data' => $authors], 200);
- 
+
+        }else{
+            return response(['message' => 'No data to be displayed', 'data' => null], 404);
         }
-        return response(['message' => 'No data to be displayed', 'data' => null], 404);
+        
     }
 
     /**
@@ -29,6 +31,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
+
         //
     }
 
@@ -65,8 +68,10 @@ class AuthorController extends Controller
         $author = Author::find($id);
         if ($author) {
             return response(['message' => 'Show data success', 'data' => $author], 200);
+        }else{
+            return response(['message' => 'data not found', 'data' => null], 404);
         }
-        return response(['message' => 'Author not found', 'data' => null], 404);
+        
     }
 
     /**
@@ -100,10 +105,10 @@ class AuthorController extends Controller
                 "email" => $request->input('email'),
                 "hp" => $request->input('hp'),
             ]);
-            return response(['message' => 'Author updated succesfully.', 'data' => $data], 201);
+            return response(['message' => 'data updated succesfully.', 'data' => $data], 406);
         }
 
-        return response(['message' => 'no author to update', 'data' => null], 404);
+        return response(['message' => 'no data to update', 'data' => null], 404);
     }
 
     /**
@@ -118,9 +123,9 @@ class AuthorController extends Controller
         $author = Author::find($id);
         if ($author) {
             $data = Author::destroy($id);
-            return response(['message' => 'author deleted succesfully', 'data' => $data], 201);
+            return response(['message' => 'data deleted succesfully', 'data' => $data], 201);
+        }else{
+            return response(['message' => 'no data to delete', 'data' => null], 404);
         }
-
-        return response(['message' => 'no author to delete', 'data' => null], 404);
     }
 }
